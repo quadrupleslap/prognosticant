@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd client
-npx parcel watch index.html &
+npx parcel watch src/index.html &
 node ../server/src/index
