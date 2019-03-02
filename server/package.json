@@ -1,5 +1,5 @@
 {
-    "name": "prognosticate-server",
+    "name": "prognosticant-server",
     "version": "0.0.1",
     "description": "UNSW essentials.",
     "main": "src/index.js",
