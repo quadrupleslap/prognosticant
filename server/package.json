@@ -1,20 +1,12 @@
 {
-  "name": "prognosticate",
-  "version": "0.0.1",
-  "description": "UNSW essentials.",
-  "main": "src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/quadrupleslap/prognosticate.git"
-  },
-  "author": "Ram Kaniyur",
-  "license": "GPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/quadrupleslap/prognosticate/issues"
-  },
-  "homepage": "https://github.com/quadrupleslap/prognosticate#readme",
-  "dependencies": {
-    "express": "^4.16.4",
-    "node-fetch": "^2.3.0"
-  }
+    "name": "prognosticate-server",
+    "version": "0.0.1",
+    "description": "UNSW essentials.",
+    "main": "src/index.js",
+    "author": "Ram Kaniyur",
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
+        "express": "^4.16.4",
+        "node-fetch": "^2.3.0"
+    }
 }
