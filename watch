@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd client
+npx parcel watch index.html &
+node ../server/src/index

@@ -14,8 +14,8 @@ let app = express();
 app.get('/data/calendar', require('./calendar'));
 app.get('/data/weather', require('./weather'));
 app.get('/data/buses', require('./buses'));
-app.use(express.static('static'));
-app.use((req, res) => res.sendFile('index.html', { root: 'static' }));
+app.use(express.static('dist'));
+app.use((req, res) => res.sendFile('index.html', { root: 'dist' }));
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}!`);
