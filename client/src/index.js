@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink, Router } from './router';
 
+import IoMdTimer    from 'react-icons/lib/io/android-stopwatch';
+import IoMdCalendar from 'react-icons/lib/io/android-calendar';
+import IoMdBus      from 'react-icons/lib/io/android-bus';
+import IoMdSettings from 'react-icons/lib/io/android-settings';
+
 //TODO: Everything.
 
 const ROUTES = {
@@ -14,18 +19,20 @@ const ROUTES = {
 const FALLBACK = () => <p>Page not found.</p>;
 
 const MENU = [
-    ['/', 'Home'],
-    ['/timetable', 'Timetable'],
-    ['/buses', 'Buses'],
-    ['/settings', 'Settings']
+    ['/', 'Home', IoMdTimer],
+    ['/timetable', 'Timetable', IoMdCalendar],
+    ['/buses', 'Buses', IoMdBus],
+    ['/settings', 'Settings', IoMdSettings],
 ];
 
 ReactDOM.render(
     <div>
         {
-            MENU.map(([url, name]) => (
+            MENU.map(([url, name, Icon], i) => (
                 <NavLink activeClassName='active'
-                         href={url}>
+                         href={url}
+                         key={i}>
+                    <Icon />
                     {name + ' '}
                 </NavLink>
             ))
