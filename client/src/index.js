@@ -13,16 +13,23 @@ const ROUTES = {
 
 const FALLBACK = () => <p>Page not found.</p>;
 
+const MENU = [
+    ['/', 'Home'],
+    ['/timetable', 'Timetable'],
+    ['/buses', 'Buses'],
+    ['/settings', 'Settings']
+];
+
 ReactDOM.render(
     <div>
-        <NavLink activeClassName='active' href='/'>Home</NavLink>
-        {' '}
-        <NavLink activeClassName='active' href='/timetable'>Timetable</NavLink>
-        {' '}
-        <NavLink activeClassName='active' href='/buses'>Buses</NavLink>
-        {' '}
-        <NavLink activeClassName='active' href='/settings'>Settings</NavLink>
-
+        {
+            MENU.map(([url, name]) => (
+                <NavLink activeClassName='active'
+                         href={url}>
+                    {name + ' '}
+                </NavLink>
+            ))
+        }
         <Router routes={ROUTES} fallback={FALLBACK} />
     </div>,
     document.getElementById('root'),
