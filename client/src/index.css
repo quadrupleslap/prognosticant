@@ -1,0 +1,14 @@
+body {
+    font-family: monospace;
+    color: #FFF;
+    background-color: #000;
+    font-size: 2em;
+}
+
+a {
+    color: #0FF;
+}
+
+.active {
+    color: #0F0;
+}
