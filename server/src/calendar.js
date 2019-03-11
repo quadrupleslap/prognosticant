@@ -30,7 +30,8 @@ module.exports = async (req, res) => {
 
         res.set('Content-Type', mime);
         return res.send(await cres.buffer());
-    } catch {
+    } catch (e) {
+        console.error(e);
         return res.sendStatus(400);
     }
 };

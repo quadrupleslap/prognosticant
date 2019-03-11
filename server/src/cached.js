@@ -32,7 +32,8 @@ module.exports = class Cached {
                 res.set(this.headers)
                 res.send(this.cached);
             }
-        } catch {
+        } catch (e) {
+            console.error(e);
             for (let res of this.queue) {
                 res.sendStatus(500);
             }
