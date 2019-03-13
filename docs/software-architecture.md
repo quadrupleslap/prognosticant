@@ -1,6 +1,6 @@
 # Software Architecture
 
-Architecturally, the software is a pretty boring web application.
+Architecturally, the software is a standard web application.
 
 - There is conceptually one server, although this may simply be a facade for
   multiple instances of the server behind a proxy.
