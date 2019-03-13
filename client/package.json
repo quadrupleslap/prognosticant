@@ -6,7 +6,7 @@
     "author": "Ram Kaniyur",
     "license": "GPL-3.0-or-later",
     "devDependencies": {
-        "cssnano": "^4.1.10"
+        "parcel-bundler": "^1.12.1"
     },
     "dependencies": {
         "react": "^16.8.3",

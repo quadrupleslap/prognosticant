@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd client
+npm install
+npx parcel build src/index.html -d ../dist

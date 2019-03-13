@@ -1,5 +1,8 @@
 #!/bin/sh
 
 cd client
-parcel watch src/index.html &
-node ../server/src/index
+npm install
+npx parcel watch src/index.html -d ../dist &
+cd ..
+
+npm start

@@ -8,5 +8,10 @@
     "dependencies": {
         "express": "^4.16.4",
         "node-fetch": "^2.3.0"
+    },
+    "scripts": {
+        "start": "node src/index",
+        "build": "./build",
+        "watch": "./watch"
     }
 }
