@@ -5,10 +5,9 @@
     "main": "index.html",
     "author": "Ram Kaniyur",
     "license": "GPL-3.0-or-later",
-    "devDependencies": {
-        "parcel-bundler": "^1.12.1"
-    },
+    "devDependencies": {},
     "dependencies": {
+        "parcel-bundler": "^1.12.1",
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "react-icons": "^2.2.7"
