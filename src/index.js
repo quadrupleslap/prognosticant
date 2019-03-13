@@ -14,8 +14,20 @@ let app = express();
 app.get('/data/calendar', require('./calendar'));
 app.get('/data/weather', require('./weather'));
 app.get('/data/buses', require('./buses'));
-app.use(express.static('dist'));
-app.use((req, res) => res.sendFile('index.html', { root: 'dist' }));
+
+function index(req, res) {
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile('index.html', { root: 'dist' });
+}
+
+function staticHeaders(res, path, stat) {
+    res.set('Cache-Control', path.endsWith('.html')
+        ? 'no-cache'
+        : 'public,max-age=31536000,immutable');
+}
+
+app.use(express.static('dist', { setHeaders: staticHeaders }));
+app.use(index);
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}!`);
