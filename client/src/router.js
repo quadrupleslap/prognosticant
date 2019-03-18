@@ -54,7 +54,7 @@ export function NavLink(props) {
     let on = () => <Link {...rest} className={activeClassName} />;
     let off = () => <Link {...rest} />;
 
-    return <Router routes={{ [escapeRegExp(props.href)]: on }}
+    return <Router routes={{ [escapeRegExp(props.href) + '(/.*)?']: on }}
                    fallback={off} />;
 }
 
