@@ -1,43 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { NavLink, Router } from './router';
+import { attach, html, text } from 'f7k/base';
+import { navlink, router } from 'f7k/router';
 
-import IoMdTimer    from 'react-icons/lib/io/android-stopwatch';
-import IoMdCalendar from 'react-icons/lib/io/android-calendar';
-import IoMdBus      from 'react-icons/lib/io/android-bus';
-import IoMdSettings from 'react-icons/lib/io/android-settings';
-
-//TODO: Everything.
-
-const ROUTES = {
-    '/': () => <p><marquee>This is the beginning of something really excellent.</marquee></p>,
-    '/timetable': () => <p>The timetable.</p>,
-    '/buses': () => <p>The buses.</p>,
-    '/settings': () => <p>The settings.</p>,
+const routes = {
+    '/': () => text('Today'),
+    '/timetable': () => text('Timetable'),
+    '/buses': () => text('Buses'),
+    '/settings': () => text('Settings'),
 };
 
-const FALLBACK = () => <p>Page not found.</p>;
+const fallback = () => text('Page not found.');
 
-const MENU = [
-    ['/', 'Home', IoMdTimer],
-    ['/timetable', 'Timetable', IoMdCalendar],
-    ['/buses', 'Buses', IoMdBus],
-    ['/settings', 'Settings', IoMdSettings],
+const menu = [
+    ['/', 'Today', 'timer'],
+    ['/timetable', 'Timetable', 'event_note'],
+    ['/buses', 'Buses', 'directions_bus'],
+    ['/settings', 'Settings', 'settings']
 ];
 
-ReactDOM.render(
-    <div>
-        {
-            MENU.map(([url, name, Icon], i) => (
-                <NavLink activeClassName='active'
-                         href={url}
-                         key={i}>
-                    <Icon />
-                    {name + ' '}
-                </NavLink>
-            ))
-        }
-        <Router routes={ROUTES} fallback={FALLBACK} />
-    </div>,
-    document.getElementById('root'),
-);
+attach(document.body, [
+    html('nav#navbar', {
+        child: menu.map(([href, title, ic]) => navlink({
+            active: { className: 'active' },
+            title,
+            href,
+            child: [
+                html('i.material-icons.nav-icon', { child: text(ic) }),
+                html('span.nav-label', { child: text(title) }),
+            ],
+        })),
+    }),
+    html('main#main', {
+        child: router(routes, fallback),
+    }),
+]);

@@ -2,4 +2,4 @@
 
 cd client
 npm install
-npx parcel build src/index.html -d ../dist
+npx parcel build src/index.html -d ../dist --experimental-scope-hoisting

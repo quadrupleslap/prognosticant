@@ -1,0 +1,83 @@
+@import 'material-design-icons/iconfont/material-icons.css';
+
+// Variables //
+
+$color-primary: #651FFF;
+$color-primary-light: #A255FF;
+$color-primary-dark: #0100CA;
+$color-border: rgba(0, 0, 0, 0.1);
+$color-text: rgba(0, 0, 0, 0.9);
+
+$mobile: "max-width: 768px";
+
+// Global Styles //
+
+html, body {
+    height: 100%;
+    margin: 0;
+    color: $color-text;
+    font-family: sans-serif;
+}
+
+// Body + Navbar + Main Area //
+
+body {
+    display: flex;
+}
+
+#main {
+    overflow: auto;
+    flex: 1;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+#navbar a {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 16px;
+}
+
+#navbar a.active {
+    color: $color-primary;
+}
+
+#navbar a:active {
+    color: $color-primary-dark;
+}
+
+.nav-label {
+    margin: 0 0 0 16px;
+}
+
+@media ($mobile) {
+    body {
+        flex-direction: column-reverse;
+    }
+
+    #navbar {
+        flex-direction: row;
+        justify-content: space-around;
+        border-top: 1px solid $color-border;
+    }
+
+    #navbar a {
+        flex-direction: column;
+        padding: 4px;
+    }
+
+    .nav-label {
+        font-size: 0.67em;
+        margin: 2px 0 0 0;
+    }
+
+    .nav-icon {
+        font-size: 28px;
+    }
+}
