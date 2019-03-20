@@ -8,7 +8,7 @@ https://api.transport.nsw.gov.au/v1/tp/trip
 ?outputFormat=rapidJSON
 &version=10.2.1.42
 &coordOutputFormat=EPSG%3A4326
-&calcNumberOfTrips=64
+&calcNumberOfTrips=16
 
 &type_origin=any
 &type_destination=any
@@ -42,12 +42,14 @@ const makeCache = url => new Cached(60, async () => {
             let departure = Date.parse(l.origin.departureTimeEstimated) / 1000 | 0;
             let arrival = Date.parse(l.destination.arrivalTimeEstimated) / 1000 | 0;
 
+            const getName = x => x.parent.disassembledName || x.name;
+
             let source = {
-                name: l.origin.name,
+                name: getName(l.origin),
                 coords: l.origin.coord,
             };
             let destination = {
-                name: l.destination.name,
+                name: getName(l.destination),
                 coords: l.destination.coord,
             };
 
