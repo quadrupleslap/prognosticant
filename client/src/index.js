@@ -1,11 +1,12 @@
 import { attach, html, text } from 'f7k/base';
 import { navlink, router } from 'f7k/router';
+import settings from './pages/settings';
 
 const routes = {
     '/': () => text('Today'),
     '/timetable': () => text('Timetable'),
     '/buses': () => text('Buses'),
-    '/settings': () => text('Settings'),
+    '/settings': settings,
 };
 
 const fallback = () => text('Page not found.');

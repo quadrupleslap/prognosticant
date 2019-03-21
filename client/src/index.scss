@@ -19,6 +19,34 @@ html, body {
     font-family: sans-serif;
 }
 
+h1, h2, h3 {
+    font-weight: normal;
+}
+
+label {
+    display: block;
+}
+
+label, p {
+    margin: 0.5em 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+// Letterboxing //
+
+.letterbox {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 8px;
+}
+
 // Body + Navbar + Main Area //
 
 body {

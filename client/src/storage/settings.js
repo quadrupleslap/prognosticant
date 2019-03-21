@@ -12,7 +12,7 @@ class Settings {
     async get(key) {
         this._validate(key);
         let s = localStorage.getItem(this.prefix + key);
-        return s ? this.defaults[key] : JSON.parse(s);
+        return s ? JSON.parse(s) : this.defaults[key]();
     }
 
     _validate(key) {
@@ -22,4 +22,7 @@ class Settings {
     }
 }
 
-export default new Settings('settings', {});
+export default new Settings('settings', {
+    '24h': () => false,
+    'weather': () => true,
+});
