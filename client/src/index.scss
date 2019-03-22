@@ -19,25 +19,14 @@ html, body {
     font-family: sans-serif;
 }
 
-h1, h2, h3 {
-    font-weight: normal;
-}
-
-label {
-    display: block;
-}
-
-label, p {
-    margin: 0.5em 0;
-}
-
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
+h1, h2, h3 { font-weight: normal; }
+label { display: block; }
+label, p { margin: 0.5em 0; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+small { opacity: 0.67; }
+table { border-spacing: 0; }
+td { padding: 0; }
 
 // Letterboxing //
 
@@ -45,6 +34,28 @@ a:hover {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 8px;
+}
+
+// Buttons //
+
+.icon-button, .text-button {
+    appearance: none;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.text-button {
+    text-transform: uppercase;
+    color: $color-primary;
+    padding: 8px;
+    margin: -8px;
+}
+
+.icon-button:active,
+.text-button:active {
+    background: rgba(0, 0, 0, 0.125);
 }
 
 // Body + Navbar + Main Area //
@@ -61,6 +72,7 @@ body {
 #navbar {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 #navbar a {
@@ -108,4 +120,25 @@ body {
     .nav-icon {
         font-size: 28px;
     }
+}
+
+// Shapes //
+
+.rounded-rectangle {
+    display: block;
+    width: 1em;
+    height: 1em;
+    border-radius: .25em;
+    background: currentColor;
+}
+
+// Settings //
+
+.settings-calendars td:nth-child(2) {
+    width: 100%;
+    padding: 0 8px;
+}
+
+.settings-calendars:not(:empty) {
+    margin: 1em 0;
 }

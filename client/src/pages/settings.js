@@ -1,4 +1,6 @@
-import { html, text } from 'f7k/base';
+import { attach, detach, html, text } from 'f7k/base';
+import { listen } from 'f7k/util';
+import CALENDARS from '../storage/calendars';
 import SETTINGS from '../storage/settings';
 
 export default function settings() {
@@ -8,7 +10,13 @@ export default function settings() {
             checkbox('weather', 'Show the weather'),
         ]),
         section('Calendars', [
-            p('TODO: Calendars.'),
+            calendars(),
+            html('button.text-button', {
+                child: text('Add Calendar'),
+                onclick() {
+                    window.alert('TODO: Add calendar.');
+                },
+            }),
         ]),
         section('Credits', [
             p('Developed by ', a('Ram Kaniyur', 'https://github.com/quadrupleslap'), '.'),
@@ -18,24 +26,83 @@ export default function settings() {
     ];
 }
 
-function checkbox(key, label) {
-    let box;
+function calendars() {
+    let rows = {};
+    let table = html('table', {});
 
-    SETTINGS.get(key).then(val => {
-        box.checked = val;
-        box.disabled = false;
+    CALENDARS.list().then(ids => {
+        for (let id of ids) {
+            CALENDARS.get(id).then(data => {
+                if (rows.hasOwnProperty(id)) return;
+                upsertRow(data);
+            });
+        }
     });
 
+    return table = html('table.settings-calendars', {
+        child: [],
+        destroy: listen(
+            CALENDARS, 'change', e => upsertRow(e.detail),
+            CALENDARS, 'delete', e => deleteRow(e.detail),
+        ),
+    });
+
+    function upsertRow(data) {
+        let id = data.id;
+
+        if (!rows.hasOwnProperty(id)) {
+            let node, name, color, url;
+
+            attach(table, node = html('tr', {
+                child: [
+                    html('td', {
+                        child: color = html('span.rounded-rectangle', {}),
+                    }),
+                    html('td', {
+                        child: [
+                            name = p(),
+                            p(url = html('small', {})),
+                        ],
+                    }),
+                    html('td', {
+                        child: html('button.material-icons.icon-button', {
+                            title: 'Edit',
+                            child: text('edit'),
+                            onclick() {
+                                alert('TODO: Edit a calendar.');
+                            },
+                        }),
+                    }),
+                ],
+            }));
+
+            rows[id] = { node, name, color, url };
+        }
+
+        rows[id].name.textContent = data.name;
+        rows[id].color.style.color = data.color;
+        rows[id].url.textContent = data.url;
+    }
+
+    function deleteRow(id) {
+        if (rows.hasOwnProperty(id)) {
+            detach(rows[id].node);
+            delete rows[id];
+        }
+    }
+}
+
+function checkbox(key, label) {
     return html('label', {
         child: [
-            box = html('input', {
+            html('input', {
                 type: 'checkbox',
-                disabled: true,
-                onchange: () => {
-                    SETTINGS.set(key, box.checked);
+                checked: SETTINGS.get(key),
+                onchange() {
+                    SETTINGS.set(key, this.checked);
                 },
             }),
-            text(label),
+            text(' ' + label),
         ],
     });
 }

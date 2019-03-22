@@ -9,7 +9,7 @@ class Settings {
         localStorage.setItem(this.prefix + key, JSON.stringify(value));
     }
 
-    async get(key) {
+    get(key) {
         this._validate(key);
         let s = localStorage.getItem(this.prefix + key);
         return s ? JSON.parse(s) : this.defaults[key]();
