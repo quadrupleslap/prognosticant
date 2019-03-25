@@ -90,7 +90,7 @@ with the MIME type `text/calendar`.
 - \+ Automatic deployment with Git integration.
 - \+ One-click load balancing and encryption.
 - \+ Managed databases, if we ever need them.
-- \- It's relatively expensive.
+- \− It's relatively expensive.
 
 #### Alternatives
 
@@ -98,21 +98,21 @@ with the MIME type `text/calendar`.
     - \+ Easy setup.
     - \+ Payments are bundled with my Internet and electricity bill.
     - \+ I guess if I lived close to UNSW, it could be faster.
-    - \- It's definitely going to be slower because Australian domestic Internet
+    - \− It's definitely going to be slower because Australian domestic Internet
          connections are terrible and NBN is a trainwreck.
-    - \- Reliability sucks.
-    - \- Lots of maintenance.
+    - \− Reliability sucks.
+    - \− Lots of maintenance.
 - Amazon EC2
     - \+ Cheaper (Heroku is built on top of EC2).
-    - \- It'd take a lot of time to set up and maintain.
+    - \− It'd take a lot of time to set up and maintain.
 - DigitalOcean
     - \+ Cheaper.
     - \+ Free credit is provided for students.
-    - \- A tiny bit more setup is needed.
-    - \- DigitalOcean's managed solutions are immature and more expensive.
+    - \− A tiny bit more setup is needed.
+    - \− DigitalOcean's managed solutions are immature and more expensive.
 - Other VPS Providers
-    - \- Some more setup.
-    - \- Smaller communities than the alternatives, so we'd have fewer
+    - \− Some more setup.
+    - \− Smaller communities than the alternatives, so we'd have fewer
          integrations and fewer people to ask for help.
 
 Overall, our approach to hosting is to be as provider-agnostic as possible, and
@@ -121,9 +121,9 @@ initially use the provider that lets us avoid thinking about infrastructure.
 ### Cache — In-Memory
 
 - \+ Simple.
-- \- If we ever need to add more than one server, then the number of requests
+- \− If we ever need to add more than one server, then the number of requests
      would be linear in the number of servers.
-- \- The server is conceptually still stateless, but the fact that every server
+- \− The server is conceptually still stateless, but the fact that every server
      has its own hidden cache might lead to weird results when, for example, the
      user refreshes a page.
 
@@ -132,11 +132,11 @@ initially use the provider that lets us avoid thinking about infrastructure.
 - Redis
     - \+ The cache can be shared.
     - \+ The server stays stateless.
-    - \- Slightly more complicated.
+    - \− Slightly more complicated.
 - PostgreSQL
-    - \- More complicated.
-    - \- Much slower.
-    - \- We don't need high reliability for a cache.
+    - \− More complicated.
+    - \− Much slower.
+    - \− We don't need high reliability for a cache.
 
 We decided to go with an in-memory cache because it was simple. However, we
 split caching out into its own class, so that we can, if needed, switch to Redis
@@ -160,8 +160,8 @@ one, so I don't have to pick one! I'd totally pick PostgreSQL, though.
 - \+ V8 is probably the fastest implementation of a scripting language ever.
 - \+ Seamless de/serialization of JSON, which is used both to talk to the data
      data source and to the client.
-- \- Dynamic typing makes bugs easier to miss.
-- \- If we ever need to do anything computationally-intensive, Node's lack of
+- \− Dynamic typing makes bugs easier to miss.
+- \− If we ever need to do anything computationally-intensive, Node's lack of
     parallelism means we can't just write it as a regular function. Instead,
     we'd have to use worker threads or something similarly messy.
 
@@ -170,43 +170,43 @@ one, so I don't have to pick one! I'd totally pick PostgreSQL, though.
 - Node.js + TypeScript
     - \+ Static, inferred typing can help detect bugs and enforce interfaces
          without sacrificing development speed.
-    - \- A relatively high barrier to entry; JavaScript is assumed knowledge.
-    - \- TypeScript could easily die in the next few years, just like
+    - \− A relatively high barrier to entry; JavaScript is assumed knowledge.
+    - \− TypeScript could easily die in the next few years, just like
          CoffeeScript, and the many other popular compile-to-JavaScript languages
          that preceded it.
-    - \- Parts of TypeScript, like the sum types, are designed in a pretty
+    - \− Parts of TypeScript, like the sum types, are designed in a pretty
         convoluted way in order to maintain compatibility with JavaScript.
 - Rust
     - \+ Very nice syntax.
     - \+ Static, inferred typing.
     - \+ As fast as C, and the frameworks regularly top benchmarks.
-    - \- The ecosystem is tiny and rapidly evolving.
-    - \- Many people find it hard to learn.
+    - \− The ecosystem is tiny and rapidly evolving.
+    - \− Many people find it hard to learn.
 - C / C++
     - \+ Fast.
     - \+ You can be productive quickly.
-    - \- Weakly typed and unmanaged, making them way too dangerous to use on the
+    - \− Weakly typed and unmanaged, making them way too dangerous to use on the
          server. It's really hard to be confident that code is safe.
 - Go
     - \+ A big web-development ecosystem.
-    - \- The language is statically typed, but doesn't have type inference,
+    - \− The language is statically typed, but doesn't have type inference,
          algebraic data types or generics. This means that it has all the
          drawbacks of static typing, with few of the advantages.
 - Java
     - \+ Fast.
     - \+ Old.
     - \+ Great IDE integration.
-    - \- It's unbearably verbose.
-    - \- Package management and project structure are relatively tortuous.
-    - \- Most hosting providers support self-contained binaries, and all support
+    - \− It's unbearably verbose.
+    - \− Package management and project structure are relatively tortuous.
+    - \− Most hosting providers support self-contained binaries, and all support
          Node.js, but many don't support the JVM, which limits portability.
 - Python
     - \+ Dynamically, gradually typed.
     - \+ Very easy to learn.
     - \+ A big web-development ecosystem.
-    - \- CPython is very slow.
-    - \- Gradual typing is immature and somewhat ugly.
-    - \- The async ecosystem is very immature.
+    - \− CPython is very slow.
+    - \− Gradual typing is immature and somewhat ugly.
+    - \− The async ecosystem is very immature.
 
 Our top priorities are safety, development speed, and ecosystem size, and
 because JavaScript is managed, dynamically-typed, and has a huge ecosystem, it
@@ -228,18 +228,18 @@ cross-platform support should come for free if we ever need it.
 
 - Meteor
     - \+ Pretty popular.
-    - \- Tightly integrated server and client.
-    - \- Very opinionated (e.g. MongoDB is the only first-class database).
+    - \− Tightly integrated server and client.
+    - \− Very opinionated (e.g. MongoDB is the only first-class database).
 - Sails
     - \+ Automatic API generation.
     - \+ WebSocket integration.
-    - \- Pretty opinionated.
-    - \- Small community.
+    - \− Pretty opinionated.
+    - \− Small community.
 - Koa
     - \+ No boilerplate.
     - \+ Extremely simple.
     - \+ Uses Promises instead of callbacks.
-    - \- Small community.
+    - \− Small community.
 
 Since we value simplicity, and we don't want our framework to lock us into other
 arbitrary choices, Koa and Express were the obvious choices. Although Koa does
@@ -257,18 +257,18 @@ Note that the strings given can be evaluated [here](https://browserl.ist).
 
 - \+ Enables us to use a variety of new features without massive polyfills.
 - \+ Reaches 85.21% of Australia at the time of writing.
-- \- Some of that 14.79% might want to use our service.
+- \− Some of that 14.79% might want to use our service.
 
 #### Alternatives
 
 - `defaults`
     - \+ 87.02% is a bit bigger than 85.21%.
-    - \- It requires over 100KB of polyfills, slowing downloads and increasing
+    - \− It requires over 100KB of polyfills, slowing downloads and increasing
          bandwidth costs significantly.
 - `latest 2 versions`
     - \+ 86.72% is also a bit bigger than 85.21%.
     - \+ People are likely to be using the latest version of their browsers.
-    - \- Still needs all of those polyfills.
+    - \− Still needs all of those polyfills.
 
 We want to minimize the size of the compiled application, and we expect that our
 target market, university students, keep their browsers relatively up-to-date, so
@@ -279,9 +279,9 @@ we believe that `since 2018` is a reasonable choice.
 - \+ Much smaller bundle sizes.
 - \+ The framework is so small that we know exactly what's happening.
 - \+ We can add any features we want.
-- \- Sometimes involves reinventing the wheel.
-- \- It won't have any experts working on it, so it won't be as optimized.
-- \- No community.
+- \− Sometimes involves reinventing the wheel.
+- \− It won't have any experts working on it, so it won't be as optimized.
+- \− No community.
 
 #### Alternatives
 
@@ -293,22 +293,22 @@ we believe that `since 2018` is a reasonable choice.
 - Vue
     - \+ A developer tools extension.
     - \+ The framework is only 21KB GZipped.
-    - \- Nonstandard HTML.
+    - \− Nonstandard HTML.
     - TODO
 - Angular
     - \+ A developer tools extension.
-    - \- Nonstandard HTML.
-    - \- Low adoption outside Google.
-    - \- The framework is 111KB GZipped.
-    - \- Angular introduces a lot of its own concepts, which makes for a steep
+    - \− Nonstandard HTML.
+    - \− Low adoption outside Google.
+    - \− The framework is 111KB GZipped.
+    - \− Angular introduces a lot of its own concepts, which makes for a steep
          learning curve.
 - Elm
     - \+ A very pleasant Haskell-ish language.
     - \+ A very good debugger and REPL.
-    - \- A steep learning curve.
-    - \- It's hard to convince people to learn an entirely new architecture, and
+    - \− A steep learning curve.
+    - \− It's hard to convince people to learn an entirely new architecture, and
          so it increases the barrier to contribution.
-    - \- Political issues with the package registry.
+    - \− Political issues with the package registry.
 
 TODO: Conclusion.
 
