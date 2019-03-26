@@ -10,6 +10,9 @@ Architecturally, the software is a standard web application.
 - The server is conceptually stateless, but caches responses in order to improve
   performance and avoid hitting the usage limits of the third-party sources.
 
+TODO: Diagram.
+TODO: Use tables and full sentences in the comparisons.
+
 ## Data Sources
 
 ### Transport for New South Wales Trip Planner API
@@ -158,6 +161,8 @@ one, so I don't have to pick one! I'd totally pick PostgreSQL, though.
 - \+ Node.js' multitasking is cooperative and it's single-threaded, which means
      we don't have to worry about locking resources.
 - \+ V8 is probably the fastest implementation of a scripting language ever.
+- \+ Unlike most package managers, NPM emits warnings when packages have known
+     security issues.
 - \+ Seamless de/serialization of JSON, which is used both to talk to the data
      data source and to the client.
 -  − Dynamic typing makes bugs easier to miss.
@@ -175,7 +180,7 @@ one, so I don't have to pick one! I'd totally pick PostgreSQL, though.
          CoffeeScript, and the many other popular compile-to-JavaScript languages
          that preceded it.
     -  − Parts of TypeScript, like the sum types, are designed in a pretty
-        convoluted way in order to maintain compatibility with JavaScript.
+         convoluted way in order to maintain compatibility with JavaScript.
 - Rust
     - \+ Very nice syntax.
     - \+ Static, inferred typing.
@@ -280,8 +285,7 @@ we believe that `since 2018` is a reasonable choice.
 - \+ The framework is so small that we know exactly what's happening.
 - \+ We can add any features we want.
 -  − Sometimes involves reinventing the wheel.
--  − It won't have any experts working on it, so it won't be as optimized.
--  − No community.
+-  − It won't be as optimized or well-reviewed as the alternatives.
 
 #### Alternatives
 
@@ -289,12 +293,19 @@ we believe that `since 2018` is a reasonable choice.
     - \+ The Virtual DOM makes it easy to write correct and fast code without
          having to think carefully about state transitions.
     - \+ A developer tools extension.
-    - TODO
+    - \+ React has a very large community.
+    -  − React's design means that it doesn't work well with other libraries,
+         which means we have to create wrappers for everything, or add such
+         wrappers as dependencies.
 - Vue
     - \+ A developer tools extension.
     - \+ The framework is only 21KB GZipped.
-    -  − Nonstandard HTML.
-    - TODO
+    -  − The template language is inelegant compared to JSX.
+    -  − Like Angular, Vue introduces several of its own concepts, which results
+         in a steeper learning curve.
+    -  − Like React, Vue needs wrappers to interface with other libraries.
+         Unlike React, the community is still growing, and many of these plugins
+         have yet to be implemented.
 - Angular
     - \+ A developer tools extension.
     -  − Nonstandard HTML.
@@ -310,17 +321,38 @@ we believe that `since 2018` is a reasonable choice.
          so it increases the barrier to contribution.
     -  − Political issues with the package registry.
 
-TODO: Conclusion.
+React and Vue are both very compelling, but since NPM already provides a large
+repository of framework-agnostic libraries, their large communities are not very
+important to us. Because we value much smaller bundle sizes and flexibility over
+the marginal simplification of our code afforded by React and Vue, we decided to
+implement our own, minimal, custom framework.
 
 ## Minimum Server Requirements
 
 Any Linux that supports the latest release of Node.js should be sufficient. But
 if you want some numbers, it should run on anything that fulfils the requirements
-below, including, in particular, Heroku's Free and Hobby tiers.
+below including, in particular, Heroku's Free and Hobby tiers.
 
 - Architecture: x64
 - Memory: 512MB
 - Storage: 256MB
 - Operating System: Linux (Kernel 3.10+)
 
-## TODO: Summary of Benefits
+## Summary of Benefits
+
+Our choice of components leads to the following key benefits.
+
+- The components are decoupled to the greatest extent possible, and there is
+  **zero** vendor lock-in.
+- Each component serves a well-defined role.
+- The perceived performance of the website is maximized, paying particular
+  attention to page load times.
+- Infrastructure concerns can be ignored during development, thanks to Heroku.
+- We can use the latest HTML5 and EcmaScript features because we restricted the
+  list of supported browsers.
+- The backend's implementation as simple as possible for an initial release,
+  while remaining extensible if we need to expand.
+- Securing the backend is made easier because JavaScript is a managed language,
+  and NPM audits help quickly patch vulnerabilities in dependencies.
+- The development process is made particularly easy because we chose Node.js and
+  the web, two platforms with large ecosystems.
