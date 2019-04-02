@@ -29,7 +29,7 @@ a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 label { margin: 8px 0; }
 input { margin-left: 0; }
-form { margin: 0 0 1em 0; }
+form { margin: 0 0 16px 0; }
 
 fieldset, legend {
     border: 0;
@@ -245,6 +245,8 @@ body {
 .color-picker {
     margin: 1px -3px;
     width: 24px * 6;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .color-picker input {
