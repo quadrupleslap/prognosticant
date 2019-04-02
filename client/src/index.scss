@@ -63,6 +63,7 @@ fieldset, legend {
 }
 
 .text-button {
+    font: inherit;
     text-transform: uppercase;
     color: $color-primary;
 }
