@@ -20,8 +20,10 @@ module.exports = async (req, res) => {
         return res.sendStatus(400);
     }
 
+    let url = req.query.url.replace(/^.*:/, 'https:');
+
     try {
-        let cres = await fetch(req.query.url, { size: MAX_SIZE });
+        let cres = await fetch(url, { size: MAX_SIZE });
         let mime = cres.headers.get('Content-Type');
 
         if (!(cres.ok && EXPECTED_MIME.test(mime))) {

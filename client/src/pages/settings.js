@@ -1,7 +1,8 @@
-import { attach, detach, html, text } from 'f7k/base';
-import { listen } from 'f7k/util';
 import CALENDARS from '../storage/calendars';
 import SETTINGS from '../storage/settings';
+import { addCalendar, editCalendar } from './edit-calendar';
+import { attach, detach, html, text } from 'f7k/base';
+import { listen } from 'f7k/util';
 
 export default function settings() {
     return [
@@ -13,9 +14,7 @@ export default function settings() {
             calendars(),
             html('button.text-button', {
                 child: text('Add Calendar'),
-                onclick() {
-                    window.alert('TODO: Add calendar.');
-                },
+                onclick: addCalendar,
             }),
         ]),
         section('Credits', [
@@ -68,9 +67,7 @@ function calendars() {
                         child: html('button.material-icons.icon-button', {
                             title: 'Edit',
                             child: text('edit'),
-                            onclick() {
-                                alert('TODO: Edit a calendar.');
-                            },
+                            onclick() { editCalendar(id); },
                         }),
                     }),
                 ],

@@ -6,13 +6,14 @@
     "author": "Ram Kaniyur",
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "f7k": "0.0.1",
+        "autoprefixer": "^9.5.0",
+        "f7k": "0.0.6",
         "ical.js": "^1.3.0",
         "material-design-icons": "^3.0.1",
-        "parcel-bundler": "^1.12.1",
+        "parcel-bundler": "^1.12.3",
         "sass": "^1.17.3"
     },
-    "engines": {
-        "browsers": "> 3%"
-    }
+    "browserslist": [
+        "since 2018"
+    ]
 }
