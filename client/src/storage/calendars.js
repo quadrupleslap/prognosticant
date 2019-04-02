@@ -1,3 +1,5 @@
+//TODO: Remove this dependency when Apple stop being so bad.
+import EventTarget from '@ungap/event-target';
 import ICAL from 'ical.js';
 
 // Calendar {
