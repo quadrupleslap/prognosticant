@@ -243,27 +243,33 @@ body {
 // Color Picker //
 
 .color-picker {
+    $size: 26px;
+
     margin: 1px -3px;
-    width: 24px * 6;
+    width: ($size + 6px) * 6;
     display: flex;
     flex-wrap: wrap;
-}
 
-.color-picker input {
-    appearance: none;
-    margin: 3px;
-    width: 18px; height: 18px;
-    cursor: pointer;
-    border-radius: 50%;
-    background: currentColor;
-}
+    input {
+        appearance: none;
+        margin: 3px;
+        width: $size;
+        height: $size;
+        line-height: $size;
+        cursor: pointer;
+        border-radius: 25%;
+        background: currentColor;
+        text-align: center;
+        font-size: 16px;
 
-.color-picker input:checked {
-    background: white;
-    border: 4.5px solid currentColor;
-}
+        &:checked::before {
+            content: '✔';
+            color: white;
+        }
 
-.color-picker input:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px $color-primary-light;
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 1px $color-primary-light;
+        }
+    }
 }
