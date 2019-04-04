@@ -6,7 +6,11 @@ $color-primary: #651FFF;
 $color-primary-light: #A255FF;
 $color-primary-dark: #0100CA;
 $color-text: #000D;
-$color-danger: #E00;
+
+$color-danger:  #D50000;
+$color-info:    #616161;
+$color-success: #33B679;
+$color-warning: #EF6C00;
 
 $mobile: "max-width: 768px";
 
@@ -173,7 +177,7 @@ body {
 }
 
 .modal-content {
-    background: #FFF;
+    background: white;
     border-radius: 4px;
     padding: 0 16px;
 
@@ -272,4 +276,37 @@ body {
             box-shadow: 0 0 0 1px $color-primary-light;
         }
     }
+}
+
+// Toasts //
+
+.toast {
+    position: fixed;
+    right: 16px;
+    max-width: calc(100% - 2 * 16px);
+    padding: 16px;
+    z-index: 1;
+    @media ($mobile) { left: 16px; }
+
+    pointer-events: none;
+    border-radius: 4px;
+    color: white;
+
+    transition: all 0.5s;
+    bottom: 16px - 64px;
+    opacity: 0;
+
+    &.error   { background: $color-danger;  }
+    &.info    { background: $color-info;    }
+    &.success { background: $color-success; }
+    &.warn    { background: $color-warning; }
+}
+
+.toast-show {
+    opacity: 1;
+    bottom: 16px;
+}
+
+.toast-hide {
+    bottom: 16px + 64px;
 }

@@ -1,9 +1,8 @@
-import { html, text } from 'f7k/base';
-import modal from 'f7k/modal';
-import colorPicker from '../components/color-picker';
 import CALENDARS from '../storage/calendars';
-
-//TODO: Clean this up.
+import colorPicker from '../components/color-picker';
+import modal from 'f7k/modal';
+import toast from '../components/toast';
+import { html, text } from 'f7k/base';
 
 export async function addCalendar() {
     base('New Calendar', 'Add', {}, async function () {
@@ -15,22 +14,15 @@ export async function addCalendar() {
 
         await CALENDARS.add(cal);
 
-        CALENDARS.load(cal.id).catch(e => {
-            //TODO: Warn the user that it wasn't loaded correctly.
-            console.warn(e);
-        });
+        CALENDARS
+            .load(cal.id)
+            .then(() => toast.success(`Loaded "${cal.name}".`))
+            .catch(() => toast.warn(`Couldn't load "${cal.name}". Maybe the URL's wrong?`));
     }, () => null);
 }
 
 export async function editCalendar(id) {
-    let oldCal;
-    try {
-        oldCal = await CALENDARS.get(id);
-    } catch (e) {
-        //TODO: Notify the user of the error.
-        console.error(e);
-        return;
-    }
+    let oldCal = await CALENDARS.get(id);
 
     base(`Edit "${oldCal.name}"`, 'Save', oldCal, async function () {
         let cal = {
@@ -42,10 +34,10 @@ export async function editCalendar(id) {
         await CALENDARS.update(id, cal);
 
         if (oldCal.url !== cal.url) {
-            CALENDARS.load(id).catch(e => {
-                //TODO: Warn the user that it wasn't loaded correctly.
-                console.warn(e);
-            });
+            CALENDARS
+                .load(id)
+                .then(() => toast.success(`Reloaded "${cal.name}".`))
+                .catch(() => toast.warn(`Couldn't reload "${cal.name}". Maybe the URL's wrong?`));
         }
     }, close => [
         html('button.text-button.danger', {
@@ -54,10 +46,10 @@ export async function editCalendar(id) {
             onclick() {
                 if (confirm(`Delete the timetable "${oldCal.name}"?`)) {
                     close();
-                    CALENDARS.remove(id).catch(e => {
-                        //TODO: Notify the user that the timetable wasn't deleted.
-                        console.error(e);
-                    });
+                    CALENDARS
+                        .remove(id)
+                        .then(() => toast.success(`Deleted "${oldCal.name}".`))
+                        .catch(() => toast.error(`Couldn't delete "${oldCal.name}".`));
                 }
             },
         }),
@@ -130,8 +122,7 @@ function base(title, action, initial, func, rest) {
                     await func.call(this);
                     close();
                 } catch (e) {
-                    //TODO: Notify the user of the error.
-                    console.error(e);
+                    toast.error(e.message + '.');
                 } finally {
                     submit.disabled = false;
                     submitting = false;
