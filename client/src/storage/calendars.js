@@ -76,7 +76,7 @@ class Calendars extends EventTarget {
 
         let fetched = Date.now();
         let data = ICAL.parse(text);
-        if (!Array.isArray(data)) data = [data];
+        if (typeof data[0] == 'string') data = [data];
 
         let updated = false;
         let v3;

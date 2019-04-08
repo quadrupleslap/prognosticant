@@ -1,11 +1,13 @@
 import { attach, html, text } from 'f7k/base';
 import { navlink, router } from 'f7k/router';
+
+import today from './pages/today';
 import settings from './pages/settings';
 
 const routes = {
-    '/': () => text('Today'),
-    '/timetable': () => text('Timetable'),
-    '/buses': () => text('Buses'),
+    '/': today,
+    '/timetable': () => text('TODO: Timetable.'),
+    '/buses': () => text('TODO: Buses.'),
     '/settings': settings,
 };
 
