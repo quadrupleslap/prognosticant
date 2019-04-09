@@ -32,7 +32,7 @@ export default function eventDetails(event) {
             if (Array.isArray(geo) && geo.length == 2) {
                 msg = html('a', {
                     child: text(msg),
-                    href: 'https://www.google.com/maps/dir/?api=1&destination=' + geo.map(encodeURIComponent).join(','),
+                    href: 'https://www.google.com/maps/search/?api=1&query=' + geo.map(encodeURIComponent).join(','),
                     target: '_blank',
                 });
             }
