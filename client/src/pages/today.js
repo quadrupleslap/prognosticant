@@ -2,6 +2,7 @@ import { attach, detach, html, text } from 'f7k/base';
 import { link } from 'f7k/router';
 import { listen } from 'f7k/util';
 import CALENDARS from '../storage/calendars';
+import SETTINGS from '../storage/settings';
 import ICAL from 'ical.js';
 import * as date from '../date';
 import eventDetails from './event-details';
@@ -169,7 +170,37 @@ function ultimate(reload, plan) {
     ];
 
     $weather.style.display = 'none';
-    //TODO(urgent): Weather.
+    if (SETTINGS.get('weather')) {
+        fetch('/data/weather').then(async res => {
+            if (!res.ok) return;
+            res = await res.json();
+
+            let time = plan[0].start.toJSDate() / 1000;
+            for (let w of res) {
+                if (w.time > time || time > w.time + 86400) continue;
+
+                let p = Math.round(w.probability * 100);
+                let f;
+
+                if (p < 10) {
+                    break;
+                } else if (p < 30) {
+                    f = 'Slight';
+                } else if (p < 60) {
+                    f = 'Medium';
+                } else if (p < 80) {
+                    f = 'High'
+                } else {
+                    f = 'Very high';
+                }
+
+                $weather.textContent = `☂ ${p}% · ${f} chance of ${w.kind}.`;
+                $weather.style.display = '';
+
+                break;
+            }
+        });
+    }
 
     ticki = setInterval(tick, 1000);
     tick();

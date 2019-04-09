@@ -3,7 +3,7 @@ const Cached = require('./cached');
 
 const { DARK_SKY_KEY, UNSW_LAT, UNSW_LON } = require('./constants');
 
-const URL = `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${UNSW_LAT},${UNSW_LON}?units=si&exclude=currently,minutely,daily,alerts,flags`;
+const URL = `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${UNSW_LAT},${UNSW_LON}?units=si&exclude=currently,minutely,hourly,alerts,flags`;
 
 let weather = new Cached(5 * 60, async () => {
     let cres = await fetch(URL);
@@ -15,13 +15,12 @@ let weather = new Cached(5 * 60, async () => {
     let data = await cres.json();
     let result = [];
 
-    for (let d of data.hourly.data) {
+    for (let d of data.daily.data) {
         result.push({
             time: d.time,
-            summary: d.summary,
             kind: d.precipType || undefined,
             intensity: d.precipIntensity || undefined,
-            probability: d.precipProbability || undefined
+            probability: d.precipProbability || undefined,
         });
     }
 
