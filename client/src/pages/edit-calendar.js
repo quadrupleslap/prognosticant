@@ -5,7 +5,7 @@ import toast from '../components/toast';
 import { html, text } from 'f7k/base';
 
 export async function addCalendar() {
-    base('New Calendar', 'Add', {}, async function () {
+    base('New Calendar', 'Add', { name: 'UNSW Timetable' }, async function () {
         let cal = {
             name: this.elements.name.value,
             color: this.elements.color.value,
