@@ -13,8 +13,7 @@ export async function addCalendar() {
         };
 
         await CALENDARS.add(cal);
-
-        CALENDARS
+        await CALENDARS
             .load(cal.id)
             .then(() => toast.success(`Loaded "${cal.name}".`))
             .catch(() => toast.warn(`Couldn't load "${cal.name}". Maybe the URL's wrong?`));
@@ -34,7 +33,7 @@ export async function editCalendar(id) {
         await CALENDARS.update(id, cal);
 
         if (oldCal.url !== cal.url) {
-            CALENDARS
+            await CALENDARS
                 .load(id)
                 .then(() => toast.success(`Reloaded "${cal.name}".`))
                 .catch(() => toast.warn(`Couldn't reload "${cal.name}". Maybe the URL's wrong?`));

@@ -13,8 +13,6 @@ export default function today() {
     let current;
     let container = html('.today', {});
 
-    //TODO: Make the calendar change event check that something actually changed.
-    //TODO: Listen for calendar change and delete events and reload the timetable.
     //TODO: Make the 'add your first calendar' link open the dialog directly.
 
     (async () => {
@@ -27,7 +25,6 @@ export default function today() {
             await Promise.all(ids.map(async id => {
                 let cal = await CALENDARS.get(id);
                 if (events.hasOwnProperty(cal.id)) return;
-                if (!cal.data) return;
                 events[cal.id] = extractEvents(cal.data);
             }));
 
@@ -122,7 +119,6 @@ function loaded(reload, events) {
 }
 
 function ultimate(reload, plan) {
-    //TODO: Naming convention?
     let $next, $in, $countdown, $weather, ticki;
 
     let stages = [];
@@ -248,10 +244,12 @@ function zpad2(s) {
 function extractEvents(cals) {
     let events = [];
 
-    for (let cal of cals) {
-        let vcal = new ICAL.Component(cal);
-        let vevents = vcal.getAllSubcomponents('vevent');
-        for (let vevent of vevents) events.push(new ICAL.Event(vevent));
+    if (cals) {
+        for (let cal of cals) {
+            let vcal = new ICAL.Component(cal);
+            let vevents = vcal.getAllSubcomponents('vevent');
+            for (let vevent of vevents) events.push(new ICAL.Event(vevent));
+        }
     }
 
     return events;
