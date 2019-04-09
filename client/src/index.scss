@@ -216,6 +216,19 @@ body {
     top: 0; bottom: 0;
 }
 
+// Event Details //
+
+.event-details-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.event-details-detail > :first-child {
+    align-self: flex-start;
+    margin-right: 8px;
+}
+
 // Modals //
 
 .modal-backdrop {

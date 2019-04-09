@@ -6,7 +6,7 @@ import ICAL from 'ical.js';
 import * as date from '../date';
 import eventDetails from './event-details';
 
-//TODO: This WHOLE thing needs to be refactored.
+//TODO: Refactor the entire application, is what I'm saying.
 
 export default function today() {
     let current;

@@ -1,9 +1,6 @@
 import modal from 'f7k/modal';
 import { html, text } from 'f7k/base';
 
-//TODO: Massive refactor here, too.
-//TODO: Consider adding an inline map.
-
 export default function eventDetails(event) {
     modal('modal', close => {
         let body = [
@@ -17,8 +14,6 @@ export default function eventDetails(event) {
                     html('h2', { child: text(event.summary) }),
                 ],
             }),
-
-            //TODO: Styling, i.e. align icons and text and allow for long text.
         ];
 
         if (event.description) {
@@ -37,8 +32,6 @@ export default function eventDetails(event) {
                 });
             }
 
-            console.log(geo);
-
             body.push(detail('place', msg));
         }
 
@@ -53,10 +46,9 @@ export default function eventDetails(event) {
 }
 
 function detail(icon, msg) {
-    return html('p', {
+    return html('div.event-details-detail', {
         child: [
             html('i.material-icons', { child: text(icon) }),
-            text(' '),
             typeof msg === 'string' ? text(msg) : msg,
         ],
     });
