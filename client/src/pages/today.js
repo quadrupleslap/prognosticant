@@ -7,13 +7,9 @@ import ICAL from 'ical.js';
 import * as date from '../date';
 import eventDetails from './event-details';
 
-//TODO: Refactor the entire application, is what I'm saying.
-
 export default function today() {
     let current;
     let container = html('.today', {});
-
-    //TODO: Make the 'add your first calendar' link open the dialog directly.
 
     (async () => {
         attach(container, current = text('Loading…'));
@@ -49,7 +45,7 @@ function loaded(reload, events) {
     let ids = Object.keys(events);
 
     if (ids.length == 0) {
-        //TODO: This is a good spot for a logo.
+        //TODO: Make a much better first impression.
         return link({
             href: '/settings',
             child: text('Add your first calendar!'),
@@ -110,8 +106,13 @@ function loaded(reload, events) {
     }}
 
     if (!day) {
-        //TODO: This is a good spot for something stupid.
-        return text('But nobody came.');
+        return [
+            html('p', { child: text('Your calendars are empty!') }),
+            html('iframe', {
+                src: 'https://bandcamp.com/EmbeddedPlayer/album=1612699229/size=small/bgcol=ffffff/linkcol=0687f5/track=2324223008/transparent=true/',
+                style: 'border: 0; width: 320px; height: 42px;',
+            }),
+        ];
     }
 
     plan.sort((a, b) => a.start.compare(b.start));
