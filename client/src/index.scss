@@ -1,4 +1,5 @@
 @import 'material-design-icons/iconfont/material-icons.css';
+@import 'leaflet/dist/leaflet.css';
 
 // Variables //
 
@@ -216,6 +217,37 @@ body {
     top: 0; bottom: 0;
 }
 
+// Buses //
+
+.buses-trip {
+    display: flex;
+    font-size: 1.2em;
+    margin-bottom: 16px;
+}
+
+.buses-countdown {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.buses-countdown span {
+    font-size: 2em;
+}
+
+.buses-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.buses-map {
+    height: 67vh;
+    margin: 0 -16px 16px -16px;
+}
+
 // Event Details //
 
 .event-details-detail {
@@ -268,20 +300,22 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-header {
+// Header //
+
+.header {
     display: flex;
     align-items: center;
 }
 
-.modal-header h2 {
+.header > :not(:first-child) {
     margin-left: 8px;
+}
+
+.header h2 {
+    flex-grow: 1;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-
-.modal-header .text-button {
-    margin-left: auto;
 }
 
 // Input //

@@ -2,12 +2,13 @@ import { attach, html, text } from 'f7k/base';
 import { navlink, router } from 'f7k/router';
 
 import today from './pages/today';
+import buses from './pages/buses';
 import settings from './pages/settings';
 
 const routes = {
     '/': today,
     '/timetable': () => text('TODO: Timetable.'),
-    '/buses': () => text('TODO: Buses.'),
+    '/buses': buses,
     '/settings': settings,
 };
 

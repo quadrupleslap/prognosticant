@@ -37,6 +37,10 @@ export function relative(date) {
     return d + ' weeks ago';
 }
 
-function zpad(x) {
-    return ('00' + x).slice(-2);
+export function interval(a, b) {
+    return `${time(a)} – ${time(b)}`;
+}
+
+export function zpad(x, n = 2) {
+    return x.toString().padStart(n, '0');
 }

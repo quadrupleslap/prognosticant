@@ -1,43 +1,30 @@
-import { attach, detach, html, text } from 'f7k/base';
-import { link } from 'f7k/router';
-import { listen } from 'f7k/util';
+import { html, text } from 'f7k/base';
 import CALENDARS from '../storage/calendars';
 import SETTINGS from '../storage/settings';
 import ICAL from 'ical.js';
-import * as date from '../date';
+import * as fmt from '../fmt';
 import eventDetails from './event-details';
+import loader from '../components/loader';
+import cat from '../components/cat';
 
 export default function today() {
     let current;
     let container = html('.today', {});
-
-    (async () => {
-        attach(container, current = text('Loading…'));
-
-        try {
-            let events = {};
-            let ids = await CALENDARS.list();
-
-            await Promise.all(ids.map(async id => {
-                let cal = await CALENDARS.get(id);
-                if (events.hasOwnProperty(cal.id)) return;
-                events[cal.id] = extractEvents(cal.data);
-            }));
-
-            while (true) {
-                await new Promise(reload => {
-                    detach(current);
-                    attach(container, current = loaded(reload, events));
-                });
-            }
-        } catch (e) {
-            console.error(e);
-            detach(current);
-            attach(container, current = failed());
-        }
-    })();
-
+    loader(load, container, loaded, failed);
     return container;
+}
+
+async function load() {
+    let events = {};
+    let ids = await CALENDARS.list();
+
+    await Promise.all(ids.map(async id => {
+        let cal = await CALENDARS.get(id);
+        if (events.hasOwnProperty(cal.id)) return;
+        events[cal.id] = extractEvents(cal.data);
+    }));
+
+    return events;
 }
 
 function loaded(reload, events) {
@@ -141,7 +128,7 @@ function ultimate(reload, plan) {
         html('h2.today-next', {
             child: [
                 $next = text('Class Name'),
-                $in = txt('small', ' in'),
+                $in = cat('small', ' in'),
             ],
             destroy: () => clearInterval(ticki),
         }),
@@ -156,9 +143,9 @@ function ultimate(reload, plan) {
             child: plan.map(({ event, start, end }) => {
                 return html('li.today-event', {
                     child: [
-                        txt('span', event.summary),
-                        txt('small', `${date.time(start.toJSDate())} – ${date.time(end.toJSDate())}`),
-                        txt('small', event.location),
+                        cat('span', event.summary),
+                        cat('small', fmt.interval(start.toJSDate(), end.toJSDate())),
+                        cat('small', event.location),
                     ],
                     onclick: () => eventDetails(event),
                 });
@@ -215,7 +202,7 @@ function ultimate(reload, plan) {
                 let mm = delta % 60;
                 delta = delta / 60 | 0;
 
-                $countdown.textContent = `${zpad2(delta)}:${zpad2(mm)}:${zpad2(ss)}`;
+                $countdown.textContent = `${fmt.zpad(delta)}:${fmt.zpad(mm)}:${fmt.zpad(ss)}`;
                 $next.textContent = name;
                 $in.textContent = end ? ' ends in' : ' in';
 
@@ -227,19 +214,19 @@ function ultimate(reload, plan) {
     }
 }
 
-function failed() {
-    return txt('span', 'Something went wrong. ', link({
-        href: '/',
+function failed(reload) {
+    return cat('span', 'Something went wrong. ', html('a', {
+        href: '#',
         child: text('Try again?'),
+        onclick: e => {
+            e.preventDefault();
+            reload();
+        },
     }));
 }
 
 function ymd(time) {
-    return `${time.year}-${zpad2(time.month)}-${zpad2(time.day)}`;
-}
-
-function zpad2(s) {
-    return s.toString().padStart(2, '0');
+    return `${time.year}-${fmt.zpad(time.month)}-${fmt.zpad(time.day)}`;
 }
 
 function extractEvents(cals) {
@@ -254,10 +241,4 @@ function extractEvents(cals) {
     }
 
     return events;
-}
-
-function txt(tag, ...args) {
-    return html(tag, {
-        child: args.map(x => typeof x == 'string' ? text(x) : x)
-    });
 }

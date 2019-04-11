@@ -3,6 +3,7 @@ import SETTINGS from '../storage/settings';
 import { addCalendar, editCalendar } from './edit-calendar';
 import { attach, detach, html, text } from 'f7k/base';
 import { listen } from 'f7k/util';
+import cat from '../components/cat';
 
 export default function settings() {
     return [
@@ -18,9 +19,9 @@ export default function settings() {
             }),
         ]),
         section('Credits', [
-            p('Developed by ', a('Ram Kaniyur', 'https://github.com/quadrupleslap'), '.'),
-            p('Weather by ', a('Dark Sky', 'https://darksky.net/poweredby'), '.'),
-            p('Maps by the awesome ', a('OpenStreetMap', 'https://openstreetmap.org'), ' contributors.'),
+            cat('p', 'Developed by ', a('Ram Kaniyur', 'https://github.com/quadrupleslap'), '.'),
+            cat('p', 'Weather by ', a('Dark Sky', 'https://darksky.net/poweredby'), '.'),
+            cat('p', 'Maps by ', a('Leaflet', 'https://leafletjs.com'), ' and the awesome ', a('OpenStreetMap', 'https://openstreetmap.org'), ' contributors.'),
         ]),
     ];
 }
@@ -114,8 +115,7 @@ function section(title, child) {
 }
 
 function p(...xs) {
-    let child = xs.map(x => typeof x == 'string' ? text(x) : x);
-    return html('p', { child });
+    return cat('p', ...xs);
 }
 
 function a(s, href) {

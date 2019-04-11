@@ -61,7 +61,7 @@ function base(title, action, initial, func, rest) {
     modal('modal', close => {
         return html('form', {
             child: [
-                html('header.modal-header', {
+                html('header.header', {
                     child: [
                         html('button.icon-button.material-icons', {
                             type: 'button',
