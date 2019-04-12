@@ -106,14 +106,12 @@ function loaded(title, reload, data) {
         trips = trips.filter(trip => trip.stops.length == 1);
     }
 
-    let remaining = 0;
     let items = trips.map(trip => {
         let $min, $trip, token;
 
         $trip = html('.buses-trip', {
             destroy() {
                 clearInterval(token);
-                if (--remaining == 0) reload();
             },
             child: [
                 html('.buses-countdown', {
@@ -141,7 +139,6 @@ function loaded(title, reload, data) {
             else $min.textContent = dt / 60000 | 0;
         }, 1000);
 
-        remaining++;
         return $trip;
     });
 
