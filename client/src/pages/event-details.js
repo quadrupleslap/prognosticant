@@ -47,7 +47,7 @@ export default function eventDetails(event) {
 function detail(icon, msg) {
     return html('div.event-details-detail', {
         child: [
-            html('i.material-icons', { child: text(icon) }),
+            html('span.material-icons', { child: text(icon) }),
             msg,
         ],
     });

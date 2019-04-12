@@ -28,7 +28,7 @@ attach(document.body, [
             title,
             href,
             child: [
-                html('i.material-icons.nav-icon', { child: text(ic) }),
+                html('span.material-icons.nav-icon', { child: text(ic) }),
                 html('span.nav-label', { child: text(title) }),
             ],
         })),

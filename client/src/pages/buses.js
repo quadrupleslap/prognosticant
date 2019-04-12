@@ -18,6 +18,7 @@ export default function buses() {
                     $map = cat('button.icon-button.material-icons', 'map'),
                     html('button.icon-button.material-icons', {
                         child: text('swap_horiz'),
+                        title: 'Reverse Direction',
                         onclick: e => {
                             from = from == 'unsw' ? 'central' : 'unsw';
                             reload();
@@ -36,14 +37,19 @@ export default function buses() {
         $trips = html('.letterbox', {});
         attach($content, $trips);
 
+        let title = from == 'unsw'
+            ? 'Bus Stops at UNSW'
+            : 'Bus Stops at Central';
+
         $map.disabled = true;
+        $map.title = title;
 
         $title.textContent = from == 'unsw'
             ? 'UNSW to Central'
             : 'Central to UNSW';
 
         loader(() => load(from), $trips, (reload, data) => {
-            let [child, openMap] = loaded(reload, data);
+            let [child, openMap] = loaded(title, reload, data);
 
             $map.disabled = false;
             $map.onclick = openMap;
@@ -59,7 +65,7 @@ async function load(from) {
     return await res.json();
 }
 
-function loaded(reload, data) {
+function loaded(title, reload, data) {
     let trips = [];
 
     for (let { legs } of data) {
@@ -67,19 +73,33 @@ function loaded(reload, data) {
         while (legs.length && legs[legs.length - 1].transport.kind == 'walk') legs.pop();
         if (!legs.length) continue;
 
+        let route = [];
+        for (let i = 0; i < legs.length; i++) {
+            let { transport } = legs[i];
+
+            if (i > 0) route.push(' › ');
+
+            switch (transport.kind) {
+                case 'walk':
+                    route.push(icon('directions_walk'));
+                    break;
+                case 'bus':
+                    route.push(icon('directions_bus'), ' ', cat('span', transport.name));
+                    break;
+                default:
+                    route.push('???');
+            }
+        }
+
         trips.push({
             start: new Date(legs[0].departure * 1000),
             end: new Date(legs[legs.length - 1].arrival * 1000),
-            route: legs.map(({ transport }) => {
-                switch (transport.kind) {
-                    case 'walk': return '👣';
-                    case 'bus': return '🅱 ' + transport.name;
-                    default: return '???';
-                }
-            }).join(' › '),
+            route: cat('span.buses-route', ...route),
             stops: legs.map(x => x.source),
         });
     }
+
+    trips.sort((a, b) => a.start - b.start);
 
     //TODO: Use a more intelligent filter.
     if (trips.some(trip => trip.stops.length == 1)) {
@@ -104,7 +124,7 @@ function loaded(reload, data) {
                 }),
                 html('.buses-detail', {
                     child: [
-                        cat('span', trip.route),
+                        trip.route,
                         cat('small', fmt.interval(trip.start, trip.end)),
                         ...trip.stops.map(stop => cat('small', stop.name)),
                     ],
@@ -140,10 +160,14 @@ function loaded(reload, data) {
     }}
 
     function openMap() {
-        busStops(places);
+        busStops(title, places);
     }
 
     return [items, openMap];
+}
+
+function icon(s) {
+    return cat('span.material-icons', s);
 }
 
 function failed(reload) {

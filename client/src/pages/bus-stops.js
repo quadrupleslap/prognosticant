@@ -7,7 +7,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-export default function busStops(places) {
+export default function busStops(title, places) {
     modal('modal', close => {
         let map;
 
@@ -18,7 +18,7 @@ export default function busStops(places) {
                         child: text('close'),
                         onclick: close,
                     }),
-                    cat('h2', 'Bus Stops'),
+                    cat('h2', title),
                 ],
             }),
             $map = html('.buses-map', {
