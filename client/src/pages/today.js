@@ -1,4 +1,5 @@
 import { html, text } from 'f7k/base';
+import { link } from 'f7k/router';
 import CALENDARS from '../storage/calendars';
 import SETTINGS from '../storage/settings';
 import ICAL from 'ical.js';
