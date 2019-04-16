@@ -131,7 +131,9 @@ function ultimate(reload, plan) {
                 $next = text('Class Name'),
                 $in = cat('small', ' in'),
             ],
-            destroy: () => clearInterval(ticki),
+            destroy() {
+                clearInterval(ticki);
+            },
         }),
 
         $countdown = html('h1.today-countdown', {

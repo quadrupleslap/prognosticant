@@ -2,21 +2,20 @@ import { attach, detach, text } from 'f7k/base';
 
 export default async function loader(load, parent, loaded, failed) {
     let current;
-    while (true) {
+    attach(parent, current = text('Loading…'));
+
+    let reload = () => {
         detach(current);
-        attach(parent, current = text('Loading…'));
-        try {
-            let result = await load();
-            await new Promise(reload => {
-                detach(current);
-                attach(parent, current = loaded(reload, result));
-            });
-        } catch (e) {
-            console.error(e);
-            await new Promise(reload => {
-                detach(current);
-                attach(parent, current = failed(reload));
-            });
-        }
+        loader(load, parent, loaded, failed);
+    };
+
+    try {
+        let result = await load();
+        detach(current);
+        attach(parent, current = loaded(reload, result));
+    } catch (e) {
+        console.error(e);
+        detach(current);
+        attach(parent, current = failed(reload));
     }
 }
