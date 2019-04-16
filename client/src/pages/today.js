@@ -30,6 +30,7 @@ async function load() {
 
 function loaded(reload, events) {
     let now = ICAL.Time.now();
+    let nowday = ymd(now);
     let ids = Object.keys(events);
 
     if (ids.length == 0) {
@@ -49,17 +50,32 @@ function loaded(reload, events) {
         let myday;
 
         if (event.isRecurring()) {
+            let good = false;
+
             let it = event.iterator();
             let time;
             while ((time = it.next())) {
                 let det = event.getOccurrenceDetails(time);
 
-                if (now.compare(det.startDate) == 1) continue;
+                let d = ymd(det.startDate);
+                if (d < nowday) continue;
 
                 if (myday) {
-                    if (ymd(det.startDate) != myday) break;
+                    if (d != myday) {
+                        if (good) {
+                            break;
+                        } else {
+                            myday = d;
+                            times = [];
+                            good = false;
+                        }
+                    }
                 } else {
-                    myday = ymd(det.startDate);
+                    myday = d;
+                }
+
+                if (now.compare(det.startDate) != 1) {
+                    good = true;
                 }
 
                 times.push({
@@ -70,8 +86,8 @@ function loaded(reload, events) {
             }
         } else {
             let time = event.startDate;
-            if (now.compare(time) == 1) continue;
             myday = ymd(time);
+            if (myday < nowday) continue;
             times.push({
                 event,
                 start: event.startDate,
@@ -83,13 +99,11 @@ function loaded(reload, events) {
 
         if (!day || myday < day) {
             day = myday;
-            plan = [];
-        } else if (myday != day) {
-            continue;
-        }
-
-        for (let p of times) {
-            plan.push(p);
+            plan = times;
+        } else if (myday == day) {
+            for (let p of times) {
+                plan.push(p);
+            }
         }
     }}
 
