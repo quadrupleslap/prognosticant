@@ -120,6 +120,11 @@ body {
     margin: 0 0 0 16px;
 }
 
+.noscript {
+    text-align: center;
+    width: 100%;
+}
+
 @media ($mobile) {
     body {
         flex-direction: column-reverse;
