@@ -4,9 +4,14 @@ export default async function loader(load, parent, loaded, failed) {
     let current;
     attach(parent, current = text('Loading…'));
 
-    let reload = () => {
+    let _reload = () => {
         detach(current);
         loader(load, parent, loaded, failed);
+    };
+
+    let reload = () => {
+        _reload();
+        _reload = () => {};
     };
 
     try {
