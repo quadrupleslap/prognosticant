@@ -47,11 +47,10 @@ function loaded(reload, events) {
     for (let id of ids) {
     for (let event of events[id]) {
         let times = [];
-        let myday;
+        let myday = null;
+        let good = false; // A day is good iff it has an event that isn't over.
 
         if (event.isRecurring()) {
-            let good = false;
-
             let it = event.iterator();
             let time;
             while ((time = it.next())) {
@@ -67,14 +66,13 @@ function loaded(reload, events) {
                         } else {
                             myday = d;
                             times = [];
-                            good = false;
                         }
                     }
                 } else {
                     myday = d;
                 }
 
-                if (now.compare(det.startDate) != 1) {
+                if (now.compare(det.endDate) != 1) {
                     good = true;
                 }
 
@@ -85,9 +83,13 @@ function loaded(reload, events) {
                 });
             }
         } else {
-            let time = event.startDate;
-            myday = ymd(time);
+            myday = ymd(event.startDate);
             if (myday < nowday) continue;
+
+            if (now.compare(event.endDate) != 1) {
+                good = true;
+            }
+
             times.push({
                 event,
                 start: event.startDate,
@@ -95,7 +97,7 @@ function loaded(reload, events) {
             });
         }
 
-        if (!times.length) continue;
+        if (!good) continue;
 
         if (!day || myday < day) {
             day = myday;
