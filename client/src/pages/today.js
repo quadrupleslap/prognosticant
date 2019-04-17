@@ -72,7 +72,7 @@ function loaded(reload, events) {
                     myday = d;
                 }
 
-                if (now.compare(det.endDate) != 1) {
+                if (now.compare(det.endDate) < 0) {
                     good = true;
                 }
 
@@ -86,7 +86,7 @@ function loaded(reload, events) {
             myday = ymd(event.startDate);
             if (myday < nowday) continue;
 
-            if (now.compare(event.endDate) != 1) {
+            if (now.compare(event.endDate) < 0) {
                 good = true;
             }
 
