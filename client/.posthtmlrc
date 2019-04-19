@@ -1,0 +1,32 @@
+{
+    "plugins": {
+        "posthtml-favicons": {
+            "root": "src",
+            "outDir": "../dist",
+            "configuration": {
+                "appName": "Quartz",
+                "appShortName": "Quartz",
+                "appDescription": "Convenient stuff for UNSW students.",
+                "developerName": "Ram Kaniyur",
+                "developerURL": "https://github.com/quadrupleslap",
+                "background": "#FFFFFF",
+                "theme_color": "#651FFF",
+                "appleStatusBarStyle": "default",
+                "display": "standalone",
+                "orientation": "portrait",
+                "scope": ".",
+                "start_url": ".",
+                "icons": {
+                    "android": true,
+                    "appleIcon": true,
+                    "appleStartup": false,
+                    "coast": false,
+                    "favicons": true,
+                    "firefox": false,
+                    "windows": false,
+                    "yandex": false
+                }
+            }
+        }
+    }
+}

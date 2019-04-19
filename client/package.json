@@ -13,7 +13,8 @@
         "leaflet": "^1.4.0",
         "material-design-icons": "^3.0.1",
         "parcel-bundler": "^1.12.3",
-        "sass": "^1.17.3"
+        "sass": "^1.17.3",
+        "posthtml-favicons": "^1.2.0"
     },
     "browserslist": [
         "since 2018"
