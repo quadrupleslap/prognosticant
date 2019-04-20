@@ -1,5 +1,6 @@
 import { attach, html, text } from 'f7k/base';
 import { navlink, router } from 'f7k/router';
+import toast from './components/toast';
 
 import today from './pages/today';
 import buses from './pages/buses';
@@ -37,3 +38,18 @@ attach(document.body, [
         child: router(routes, fallback),
     }),
 ]);
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').then(reg => {
+        reg.addEventListener('updatefound', () => {
+            let worker = reg.installing;
+            if (!reg.active) {
+                worker.addEventListener('statechange', () => {
+                    if (worker.state == 'installed') {
+                        toast.success('Ready for offline use!');
+                    }
+                });
+            }
+        });
+    });
+}
