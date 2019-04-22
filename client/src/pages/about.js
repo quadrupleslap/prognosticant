@@ -2,8 +2,8 @@ import { text } from 'f7k/base';
 import { link } from 'f7k/router';
 import cat from '../components/cat';
 
-export default function introduction() {
-    return [
+export default function about() {
+    return cat('.center',
         cat('h1.big', 'Quartz'),
         cat('p', 'Convenient stuff for UNSW students.'),
         cat('section.normal.letterbox',
@@ -32,5 +32,5 @@ export default function introduction() {
                 it over to your computer.
             `),
         ),
-    ];
+    );
 }

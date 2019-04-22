@@ -61,6 +61,11 @@ fieldset, legend {
     margin: 0;
 }
 
+.center {
+    margin: 24px 0;
+    text-align: center;
+}
+
 // Buttons //
 
 .icon-button, .text-button {
@@ -184,11 +189,6 @@ body {
 }
 
 // Today //
-
-.today {
-    margin: 24px 0;
-    text-align: center;
-}
 
 .today-next {
     margin: 0;

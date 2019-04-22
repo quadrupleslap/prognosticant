@@ -1,5 +1,5 @@
 import { html, text } from 'f7k/base';
-import { link } from 'f7k/router';
+import { navigate, link } from 'f7k/router';
 import CALENDARS from '../storage/calendars';
 import SETTINGS from '../storage/settings';
 import ICAL from 'ical.js';
@@ -7,11 +7,10 @@ import * as fmt from '../fmt';
 import eventDetails from './event-details';
 import loader from '../components/loader';
 import cat from '../components/cat';
-import introduction from './introduction';
 
 export default function today() {
     let current;
-    let container = html('.today', {});
+    let container = html('.center', {});
     loader(load, container, loaded, failed);
     return container;
 }
@@ -35,7 +34,8 @@ function loaded(reload, events) {
     let ids = Object.keys(events);
 
     if (ids.length == 0) {
-        return introduction();
+        navigate('/about');
+        return null;
     }
 
     let day = null;

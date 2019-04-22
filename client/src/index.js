@@ -5,12 +5,14 @@ import toast from './components/toast';
 import today from './pages/today';
 import buses from './pages/buses';
 import settings from './pages/settings';
+import about from './pages/about';
 
 const routes = {
     '/': today,
     '/timetable': () => text('TODO: Timetable.'),
     '/buses': buses,
     '/settings': settings,
+    '/about': about,
 };
 
 const fallback = () => text('Page not found.');
