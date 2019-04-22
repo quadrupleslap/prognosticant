@@ -229,7 +229,12 @@ $timetable-h: 48px;
     position: relative;
     flex: 1 1 0;
     height: 24 * $timetable-h;
-    background-image: repeating-linear-gradient(#0001 0px, #0001 1px, #0000 1px, #0000 $timetable-h);
+    background-image: repeating-linear-gradient(
+        #0000 0px,
+        #0000 $timetable-h - 1px,
+        #0001 $timetable-h - 1px,
+        #0001 $timetable-h
+    );
 }
 
 .timetable-event {
