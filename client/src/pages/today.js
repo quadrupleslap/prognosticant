@@ -7,6 +7,7 @@ import * as fmt from '../fmt';
 import eventDetails from './event-details';
 import loader from '../components/loader';
 import cat from '../components/cat';
+import introduction from './introduction';
 
 export default function today() {
     let current;
@@ -34,11 +35,7 @@ function loaded(reload, events) {
     let ids = Object.keys(events);
 
     if (ids.length == 0) {
-        //TODO: Make a much better first impression.
-        return link({
-            href: '/settings',
-            child: text('Add your first calendar!'),
-        });
+        return introduction();
     }
 
     let day = null;
@@ -152,7 +149,7 @@ function ultimate(reload, plan) {
             },
         }),
 
-        $countdown = html('h1.today-countdown', {
+        $countdown = html('h1.big', {
             child: text('__:__:__'),
         }),
 

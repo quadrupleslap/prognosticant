@@ -42,13 +42,23 @@ fieldset, legend {
     margin: 0;
 }
 
-// Letterboxing //
+// Layout //
 
 .letterbox {
     width: 100%;
     max-width: 768px + 2 * 16px;
     margin: 0 auto;
     padding: 0 16px;
+}
+
+.normal {
+    text-align: initial;
+}
+
+.big {
+    font-size: 5em;
+    font-weight: 300;
+    margin: 0;
 }
 
 // Buttons //
@@ -181,12 +191,6 @@ body {
 }
 
 .today-next {
-    margin: 0;
-}
-
-.today-countdown {
-    font-size: 5em;
-    font-weight: 300;
     margin: 0;
 }
 
