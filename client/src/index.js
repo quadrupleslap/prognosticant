@@ -3,13 +3,14 @@ import { navlink, router } from 'f7k/router';
 import toast from './components/toast';
 
 import today from './pages/today';
+import timetable from './pages/timetable';
 import buses from './pages/buses';
 import settings from './pages/settings';
 import about from './pages/about';
 
 const routes = {
     '/': today,
-    '/timetable': () => text('TODO: Timetable.'),
+    '/timetable': timetable,
     '/buses': buses,
     '/settings': settings,
     '/about': about,

@@ -108,6 +108,12 @@ body {
     flex: 1;
 }
 
+#main > div {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
 #navbar {
     display: flex;
     flex-direction: column;
@@ -174,6 +180,89 @@ body {
     height: 1em;
     border-radius: .25em;
     background: currentColor;
+}
+
+// Timetable //
+
+.timetable {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    overflow: hidden;
+}
+
+.timetable-timetable {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    margin: 0 -16px;
+}
+
+$timetable-w: 48px;
+$timetable-h: 48px;
+
+.timetable-head {
+    display: flex;
+    padding-left: $timetable-w;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #0001;
+}
+
+.timetable-head * {
+    flex: 1 1 0;
+    text-align: center;
+}
+
+.timetable-body, .timetable-content {
+    display: flex;
+    flex: 1 1 0;
+}
+
+.timetable-body {
+    overflow: auto;
+}
+
+.timetable-column {
+    position: relative;
+    flex: 1 1 0;
+    height: 24 * $timetable-h;
+    background-image: repeating-linear-gradient(#0001 0px, #0001 1px, #0000 1px, #0000 $timetable-h);
+}
+
+.timetable-event {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-overflow: clip;
+    overflow: hidden;
+    color: white;
+    font-size: 0.9em;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 1px;
+}
+
+.timetable-event:active {
+    filter: brightness(0.9);
+}
+
+.timetable-times {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-right: 4px;
+    height: 24 * $timetable-h;
+    width: $timetable-w;
+    padding: $timetable-h / 2 0;
+}
+
+.timetable-active {
+    color: $color-primary;
 }
 
 // Settings //

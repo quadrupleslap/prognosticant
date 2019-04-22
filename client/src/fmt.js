@@ -1,15 +1,21 @@
 import SETTINGS from './storage/settings';
 
-export function time(date) {
-    let h = date.getHours(), m = date.getMinutes();
-    let xm = '';
+export function time(h, m) {
+    if (typeof h == 'object') {
+        m = h.getMinutes();
+        h = h.getHours();
+    }
+
+    let hh = '', mm = '', xm = '';
 
     if (!SETTINGS.get('24h')) {
         xm = h < 12 ? ' ᴀᴍ' : ' ᴘᴍ';
         h = (h + 11) % 12 + 1;
     }
 
-    return zpad(h) + ':' + zpad(m) + xm;
+    return m == null
+        ? h + xm
+        : zpad(h) + ':' + zpad(m) + xm;
 }
 
 export function relative(date) {
