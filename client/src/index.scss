@@ -255,10 +255,10 @@ $timetable-h: 48px;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
-    padding-right: 4px;
     height: 24 * $timetable-h;
     width: $timetable-w;
     padding: $timetable-h / 2 0;
+    padding-right: 4px;
 }
 
 .timetable-active {
