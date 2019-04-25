@@ -178,6 +178,7 @@ function ultimate(reload, plan) {
             let time = plan[0].start.toJSDate() / 1000;
             for (let w of res) {
                 if (w.time > time || time > w.time + 86400) continue;
+                if (!w.probability) break;
 
                 let p = Math.round(w.probability * 100);
                 let f;
